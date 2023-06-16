@@ -75,20 +75,41 @@ function App() {
     setTruckList(trucksListsReceived);
   };
 
-  const _addTruck = (registrationNumber) => {
-    console.log("Adding truck", registrationNumber);
+  const _addTruck = (addedTruck) => {
+    console.log("Adding truck", addedTruck);
+    truckList.push(addedTruck);
+    _createBayLists(truckList);
+    setTruckList([...truckList]);
   };
 
   const _deleteTruck = (index) => {
     console.log("Deleting Truck at", index);
+    truckList.splice(index, 1);
+
+    _createBayLists(truckList);
+    setTruckList([...truckList]);
   };
 
   const _add5mins = (index) => {
     console.log("Adding 5 mins to departure", index);
 
     // currentTruck.
-    // console.log("Workgin truck", typeof truckList[index]);
-    truckList[index].addFiveMinutesDeparture();
+    let prevTruck = truckList[index];
+    let newTruck = new Truck(
+      prevTruck.registrationNumber,
+      prevTruck.arrivalDateTime,
+      prevTruck.departureDateTime,
+      prevTruck.bayAssigned
+    );
+
+    // console.log("Before: New Truck", newTruck.departureDateTime);
+    newTruck.addFiveMinutesDeparture();
+    // console.log("After: New Truck", newTruck.departureDateTime);
+    truckList[index] = newTruck;
+    const finalList = [...truckList];
+
+    setTruckList(finalList);
+    // truckList[index].addFiveMinutesDeparture();
   };
 
   return (

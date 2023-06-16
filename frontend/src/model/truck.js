@@ -29,11 +29,11 @@ class Truck {
   }
 
   addFiveMinutesDeparture() {
-    console.log("adding minutes");
+    // console.log("adding minutes", this.departureDateTime);
     var date = moment(this.departureDateTime);
-    date.add(5, "minutes");
-    console.log("date", date);
-    this.setDepartureDate(date);
+    date = date.add(5, "minutes");
+    // console.log("date", date.toISOString());
+    this.setDepartureDate(date.toISOString());
   }
 }
 

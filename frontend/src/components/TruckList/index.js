@@ -3,7 +3,14 @@ import IndividualTruck from "../IndividualTruck";
 const TruckList = ({ truckList, deleteTruck, add5mins }) => {
   return (
     <>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-around",
+        }}
+      >
+        {/* <CardGroup> */}
         {truckList.map(function (truck, index) {
           return (
             <IndividualTruck
@@ -15,6 +22,7 @@ const TruckList = ({ truckList, deleteTruck, add5mins }) => {
             />
           );
         })}
+        {/* </CardGroup> */}
       </div>
     </>
   );

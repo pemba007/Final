@@ -16,23 +16,45 @@ const Truck = require("./model/truck");
 
 // Creating Initial TruckList
 let truckLists = [];
-truckLists.push(new Truck("1ABC202", moment.now(), moment.now(), 1));
-truckLists.push(new Truck("1ABC201", moment.now(), moment.now(), -1));
-truckLists.push(new Truck("1ABC204", moment.now(), moment.now(), -1));
-truckLists.push(new Truck("1ABD202", moment.now(), moment.now(), 12));
-truckLists.push(new Truck("1ABA202", moment.now(), moment.now()));
-truckLists.push(new Truck("1AVC202", moment.now(), moment.now()));
-truckLists.push(new Truck("1ASC202", moment.now(), moment.now()));
-truckLists.push(new Truck("1ABA202", moment.now(), moment.now()));
-truckLists.push(new Truck("1ABC501", moment.now(), moment.now(), 8));
-truckLists.push(new Truck("1ABC802", moment.now(), moment.now()));
-truckLists.push(new Truck("1ABC212", moment.now(), moment.now()));
-truckLists.push(new Truck("1BBB112", moment.now(), moment.now()));
-truckLists.push(new Truck("1CCCC902", moment.now(), moment.now(), 6));
-
-const val = moment.now();
-console.log(typeof val);
-console.log("Formated", moment(val).format("MMMM Do YYYY, h:mm:ss a"));
+truckLists.push(
+  new Truck("1ABC202", moment().toISOString(), moment().toISOString(), 1)
+);
+truckLists.push(
+  new Truck("1ABC201", moment().toISOString(), moment().toISOString(), -1)
+);
+truckLists.push(
+  new Truck("1ABC204", moment().toISOString(), moment().toISOString(), -1)
+);
+truckLists.push(
+  new Truck("1ABD202", moment().toISOString(), moment().toISOString(), 12)
+);
+truckLists.push(
+  new Truck("1ABA202", moment().toISOString(), moment().toISOString())
+);
+truckLists.push(
+  new Truck("1AVC202", moment().toISOString(), moment().toISOString())
+);
+truckLists.push(
+  new Truck("1ASC202", moment().toISOString(), moment().toISOString())
+);
+truckLists.push(
+  new Truck("1ABA202", moment().toISOString(), moment().toISOString())
+);
+truckLists.push(
+  new Truck("1ABC501", moment().toISOString(), moment().toISOString(), 8)
+);
+truckLists.push(
+  new Truck("1ABC802", moment().toISOString(), moment().toISOString())
+);
+truckLists.push(
+  new Truck("1ABC212", moment().toISOString(), moment().toISOString())
+);
+truckLists.push(
+  new Truck("1BBB112", moment().toISOString(), moment().toISOString())
+);
+truckLists.push(
+  new Truck("1CCCC902", moment().toISOString(), moment().toISOString(), 6)
+);
 
 app.get("/", (req, res) => {
   console.log("Getting truckLists", truckLists);
