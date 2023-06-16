@@ -9,6 +9,7 @@ import Truck from "../../model/truck";
 const AddTruckComponent = ({ showModal, onClose, onOpen, handleSubmit }) => {
   // const set
   const _formSubmit = (e) => {
+    console.log("Submitting form");
     e.preventDefault();
 
     if (registrationNumber) {
@@ -28,14 +29,18 @@ const AddTruckComponent = ({ showModal, onClose, onOpen, handleSubmit }) => {
         )
       );
 
+      setRegistrationNumber("1ABC123");
+      setArrivalDateTime("");
+      setDepartureDateTime("");
+      setBayAssigned(-1);
       onClose();
     }
   };
 
   const [registrationNumber, setRegistrationNumber] = useState("1ABC123");
-  const [arrivalDateTime, setArrivalDateTime] = useState();
-  const [departureDateTime, setDepartureDateTime] = useState();
-  const [bayAssigned, setBayAssigned] = useState();
+  const [arrivalDateTime, setArrivalDateTime] = useState("");
+  const [departureDateTime, setDepartureDateTime] = useState("");
+  const [bayAssigned, setBayAssigned] = useState(-1);
 
   const handleChange = (event) => {
     setRegistrationNumber(event.target.value);

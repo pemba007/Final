@@ -10,25 +10,9 @@ function App() {
   const [showAddTruckModal, setShowAddTruckModal] = useState(false);
 
   const [truckList, setTruckList] = useState([]); // Default no trucks
-  // const [truckList, setTruckList] = useState(
-  //   Array(10).fill(new Truck("1ABC202"))
-  // );
+
   const [bayList, setBayList] = useState(Array(12).fill(false));
 
-  // const [bayList, setBayList] = useState([
-  //   true,
-  //   true,
-  //   true,
-  //   false,
-  //   true,
-  //   false,
-  //   true,
-  //   true,
-  //   false,
-  //   false,
-  //   true,
-  //   false,
-  // ]);
   useEffect(() => {
     _getTruckLists();
   }, []);
@@ -59,14 +43,14 @@ function App() {
     // API call to get truck lists
 
     let trucksListsReceived = [];
-    const response = await fetch("http://localhost:9000", {
+    let response = await fetch("http://localhost:9000", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    const jsonData = await response.json();
+    let jsonData = await response.json();
     console.log("Response", jsonData);
 
     trucksListsReceived = jsonData.truckLists;
@@ -75,22 +59,47 @@ function App() {
     setTruckList(trucksListsReceived);
   };
 
-  const _addTruck = (addedTruck) => {
+  const _addTruck = async (addedTruck) => {
     console.log("Adding truck", addedTruck);
     truckList.push(addedTruck);
+
+    // Calling API
+    let response = await fetch("http://localhost:9000/truck", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(addedTruck),
+    });
+
+    console.log("Response", response);
     _createBayLists(truckList);
     setTruckList([...truckList]);
   };
 
-  const _deleteTruck = (index) => {
+  const _deleteTruck = async (index) => {
     console.log("Deleting Truck at", index);
+    let deletedTruck = truckList[index];
     truckList.splice(index, 1);
 
+    // Calling API
+    let response = await fetch(
+      `http://localhost:9000/truck/${deletedTruck.registrationNumber}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Response", response);
+
     _createBayLists(truckList);
     setTruckList([...truckList]);
   };
 
-  const _add5mins = (index) => {
+  const _add5mins = async (index) => {
     console.log("Adding 5 mins to departure", index);
 
     // currentTruck.
@@ -106,7 +115,20 @@ function App() {
     newTruck.addFiveMinutesDeparture();
     // console.log("After: New Truck", newTruck.departureDateTime);
     truckList[index] = newTruck;
-    const finalList = [...truckList];
+    let finalList = [...truckList];
+
+    // Calling API
+    let response = await fetch(
+      `http://localhost:9000/truck/${prevTruck.registrationNumber}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Response", response);
 
     setTruckList(finalList);
     // truckList[index].addFiveMinutesDeparture();
@@ -124,7 +146,15 @@ function App() {
         }}
       >
         <Row style={{ flex: 0.02 }}>
-          <h1 style={{ textAlign: "center", margin: 0 }}>Dynamite Transport</h1>
+          <h1
+            style={{
+              textAlign: "center",
+              margin: "10px 5px",
+              fontWeight: "500",
+            }}
+          >
+            Dynamite Transport
+          </h1>
         </Row>
         <Row style={{ flex: 0.98 }}>
           <Col

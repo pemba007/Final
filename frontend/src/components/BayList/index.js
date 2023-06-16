@@ -8,7 +8,7 @@ const BayList = ({ bayList }) => {
           flexDirection: "column",
           justifyContent: "space-evenly",
           height: "100%",
-          overflow: "scroll",
+          overflow: "auto",
         }}
       >
         {bayList.map(function (bayCondition, index) {
@@ -18,11 +18,17 @@ const BayList = ({ bayList }) => {
               style={{
                 minheight: "20px",
                 height: "5%",
+                maxHeight: "80px",
                 backgroundColor: bayCondition ? "green" : "red",
                 display: "grid",
                 placeItems: "center",
                 color: "white",
               }}
+              className={
+                bayCondition
+                  ? "bg-success text-white"
+                  : "bg-secondary text-white"
+              }
             >
               {index + 1}
             </div>
