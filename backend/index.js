@@ -5,6 +5,7 @@ const port = 9000;
 
 // Enabling Cors
 app.use(cors());
+app.use(express.json());
 
 // Importing library moment
 
@@ -58,9 +59,45 @@ truckLists.push(
 
 app.get("/", (req, res) => {
   console.log("Getting truckLists", truckLists);
+
+  // Convert array of class objects to list of dictionaries
+  const listOfDicts = truckLists.map(
+    ({
+      registrationNumber,
+      arrivalDateTime,
+      departureDateTime,
+      bayAssigned,
+    }) => ({
+      registrationNumber,
+      arrivalDateTime,
+      departureDateTime,
+      bayAssigned,
+    })
+  );
+
+  // Output the resulting list of dictionaries
+  // console.log(listOfDicts);
+
   res.send({
-    truckLists: truckLists,
+    truckLists: listOfDicts,
   });
+});
+
+app.post("/truck", (req, res) => {
+  console.log("POST: Req", req.body);
+  res.send("Got a POST request");
+});
+
+app.put("/truck/:truckId", (req, res) => {
+  console.log("PUT: Req", req.params.truckId);
+  const truckId = req.params.truckId;
+  res.send(`Got a PUT request at /truck for ${truckId}`);
+});
+
+app.delete("/truck/:truckId", (req, res) => {
+  console.log("DELETE: Req", req.params.truckId);
+  const truckId = req.params.truckId;
+  res.send(`Got a DELETE request at /truck for ${truckId}`);
 });
 
 app.listen(port, () => {
